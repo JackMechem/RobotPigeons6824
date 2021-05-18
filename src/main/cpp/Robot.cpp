@@ -8,12 +8,18 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
+#include <frc/Spark.h>
+
+#include <frc/VictorSP.h>
+
 using namespace frc;
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+
+  m_left.SetInverted(true);
 }
 
 /**
@@ -58,9 +64,12 @@ void Robot::AutonomousPeriodic() {
   }
 }
 
-void Robot::TeleopInit() {}
+void Robot::TeleopInit() {
+
+}
 
 void Robot::TeleopPeriodic() {
+
   
   leftbump = xbox.GetBumper(frc::GenericHID::kLeftHand);
   rightbump = xbox.GetBumper(frc::GenericHID::kRightHand);
@@ -76,6 +85,9 @@ void Robot::TeleopPeriodic() {
 
   right_x = xbox.GetX(frc::GenericHID::kRightHand);
   right_y = xbox.GetY(frc::GenericHID::kRightHand);
+
+  m_drive.CurvatureDrive(xbox.GetY(frc::GenericHID::kLeftHand), xbox.GetX(frc::GenericHID::kLeftHand), xbox.GetAButton());
+
 }
 
 void Robot::DisabledInit() {}

@@ -10,6 +10,16 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/XboxController.h>
 
+#include <frc/drive/DifferentialDrive.h>
+
+#include <iostream>
+
+#include <frc/smartdashboard/SmartDashboard.h>
+
+#include <frc/Spark.h>
+
+#include <frc/VictorSP.h>
+
 class Robot : public frc::TimedRobot {
  public:
   void RobotInit() override;
@@ -43,4 +53,9 @@ class Robot : public frc::TimedRobot {
   double left_y = 0.0;
   double right_x = 0.0;
   double right_y = 0.0;
+
+  frc::Spark m_left{1};
+  frc::Spark m_right{2};
+  frc::DifferentialDrive m_drive{m_left, m_right};
+
 };
