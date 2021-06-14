@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 #include "Robot.h"
 
 #include <iostream>
@@ -12,6 +8,8 @@
 
 #include <frc/VictorSP.h>
 
+#include <frc/Joystick.h>
+
 using namespace frc;
 
 void Robot::RobotInit() {
@@ -19,7 +17,7 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-  m_left.SetInverted(true);
+  m_left.SetInverted(false);
 }
 
 /**
@@ -86,7 +84,11 @@ void Robot::TeleopPeriodic() {
   right_x = xbox.GetX(frc::GenericHID::kRightHand);
   right_y = xbox.GetY(frc::GenericHID::kRightHand);
 
-  m_drive.CurvatureDrive(xbox.GetY(frc::GenericHID::kLeftHand), xbox.GetX(frc::GenericHID::kLeftHand), xbox.GetAButton());
+  m_drive.ArcadeDrive(stickOne.GetY(), stickOne.GetX());
+
+  if(xbox.GetAButton()){
+    wpi::outs() << "A button pushed";
+  }
 
 }
 
